@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "skywriting",
+	"version": "${version}",
+	"name": "Skywriting",
+	"description": "A mod that adds a magical quill that can write straight onto the air!",
+	"authors": [
+		"miyucomics"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"license": "MIT",
+	"icon": "assets/skywriting/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"miyucomics.skywriting.SkywritingMain"
+		],
+		"client": [
+			"miyucomics.skywriting.SkywritingClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
