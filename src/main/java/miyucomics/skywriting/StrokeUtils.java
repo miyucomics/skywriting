@@ -9,23 +9,22 @@ public class StrokeUtils {
 	private static final int SAMPLES_PER_SEGMENT = 2;
 
 	public static ArrayList<Vec3d> optimizeClosePoints(ArrayList<Vec3d> points, double minDistance) {
-		if (points == null || points.size() < 2) {
+		if (points.size() < 2)
 			return points;
-		}
 
-		ArrayList<Vec3d> filtered = new ArrayList<>();
+		ArrayList<Vec3d> optimized = new ArrayList<>();
 		Vec3d lastAccepted = points.get(0);
-		filtered.add(lastAccepted);
+		optimized.add(lastAccepted);
 
 		for (int i = 1; i < points.size(); i++) {
 			Vec3d current = points.get(i);
 			if (current.subtract(lastAccepted).length() >= minDistance) {
-				filtered.add(current);
+				optimized.add(current);
 				lastAccepted = current;
 			}
 		}
 
-		return filtered;
+		return optimized;
 	}
 
 	public static List<Vec3d> generateSmoothCurve(List<Vec3d> points) {
