@@ -33,21 +33,19 @@ public class QuillItem extends Item {
 
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-		if (world.isClient)
+		if (stroke == null)
 			return;
 		stroke.appendStroke(user.getEyePos().add(user.getRotationVector()).subtract(stroke.getPos()));
 	}
 
 	@Override
 	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-		if (world.isClient)
-			return;
 		stroke = null;
 	}
 
 	@Override
 	public int getMaxUseTime(ItemStack stack) {
-		return 20 * 5;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override
