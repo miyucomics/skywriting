@@ -41,6 +41,7 @@ public class StrokeEntity extends Entity {
 	public StrokeEntity(EntityType<? extends StrokeEntity> entityType, World world) {
 		super(entityType, world);
 		this.noClip = true;
+		this.setNoGravity(true);
 		this.lastPosition = this.getPos();
 	}
 
@@ -134,6 +135,8 @@ public class StrokeEntity extends Entity {
 			entity.setId(entityId);
 			entity.setUuid(uuid);
 			entity.setPos(x, y, z);
+			entity.updateTrackedPosition(x, y, z);
+			entity.refreshPositionAfterTeleport(x, y, z);
 			entity.clientVertices = receivedVertices;
 			world.addEntity(entityId, entity);
 		});

@@ -12,7 +12,11 @@ public class SkywritingMain implements ModInitializer {
 	public static final EntityType<StrokeEntity> STROKE_ENTITY = Registry.register(
 		Registries.ENTITY_TYPE,
 		new Identifier(MOD_ID, "stroke"),
-		EntityType.Builder.<StrokeEntity>create(StrokeEntity::new, SpawnGroup.MISC).setDimensions(0.1f, 0.1f).trackingTickInterval(1).maxTrackingRange(32).build("stroke")
+		EntityType.Builder.<StrokeEntity>create(StrokeEntity::new, SpawnGroup.MISC)
+			.setDimensions(0.5f, 0.5f)
+			.trackingTickInterval(3)
+			.maxTrackingRange(32)
+			.build("stroke")
 	);
 
 	@Override
