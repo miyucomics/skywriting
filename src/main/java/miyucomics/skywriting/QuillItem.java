@@ -5,9 +5,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class QuillItem extends Item {
@@ -28,19 +32,30 @@ public class QuillItem extends Item {
 		stroke.setPosition(user.getEyePos().add(user.getRotationVector()));
 		world.spawnEntity(stroke);
 
+		world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 0.5f, 1.5f);
+
 		return TypedActionResult.success(stack);
 	}
 
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+		Vec3d newPosition = user.getEyePos().add(user.getRotationVector());
+		if (world.getRandom().nextFloat() < 0.2f) {
+			double offsetX = world.getRandom().nextGaussian() * 0.02;
+			double offsetY = world.getRandom().nextGaussian() * 0.02;
+			double offsetZ = world.getRandom().nextGaussian() * 0.02;
+			world.addParticle(ParticleTypes.END_ROD, newPosition.x + offsetX, newPosition.y + offsetY, newPosition.z + offsetZ, 0, 0, 0);
+		}
+
 		if (stroke == null)
 			return;
-		stroke.appendStroke(user.getEyePos().add(user.getRotationVector()).subtract(stroke.getPos()));
+		stroke.appendStroke(newPosition.subtract(stroke.getPos()));
 	}
 
 	@Override
 	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
 		stroke = null;
+		world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, SoundCategory.PLAYERS, 0.5f, 1.0f);
 	}
 
 	@Override
