@@ -5,13 +5,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class QuillItem extends Item {
@@ -39,17 +37,9 @@ public class QuillItem extends Item {
 
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-		Vec3d newPosition = user.getEyePos().add(user.getRotationVector());
-		if (world.getRandom().nextFloat() < 0.2f) {
-			double offsetX = world.getRandom().nextGaussian() * 0.02;
-			double offsetY = world.getRandom().nextGaussian() * 0.02;
-			double offsetZ = world.getRandom().nextGaussian() * 0.02;
-			world.addParticle(ParticleTypes.END_ROD, newPosition.x + offsetX, newPosition.y + offsetY, newPosition.z + offsetZ, 0, 0, 0);
-		}
-
 		if (stroke == null)
 			return;
-		stroke.appendStroke(newPosition.subtract(stroke.getPos()));
+		stroke.appendStroke(user.getEyePos().add(user.getRotationVector()).subtract(stroke.getPos()));
 	}
 
 	@Override
