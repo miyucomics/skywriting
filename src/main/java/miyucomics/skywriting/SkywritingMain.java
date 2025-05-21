@@ -9,18 +9,11 @@ import net.minecraft.util.Identifier;
 
 public class SkywritingMain implements ModInitializer {
 	public static final String MOD_ID = "skywriting";
-	public static final EntityType<StrokeEntity> STROKE_ENTITY = Registry.register(
-		Registries.ENTITY_TYPE,
-		new Identifier(MOD_ID, "stroke"),
-		EntityType.Builder.<StrokeEntity>create(StrokeEntity::new, SpawnGroup.MISC)
-			.setDimensions(0.5f, 0.5f)
-			.trackingTickInterval(3)
-			.maxTrackingRange(32)
-			.build("stroke")
-	);
+	public static final EntityType<StrokeEntity> STROKE_ENTITY = EntityType.Builder.<StrokeEntity>create(StrokeEntity::new, SpawnGroup.MISC).setDimensions(0.01f, 0.01f).build("stroke");
 
 	@Override
 	public void onInitialize() {
+		Registry.register(Registries.ENTITY_TYPE, new Identifier(MOD_ID, "stroke"), STROKE_ENTITY);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "quill"), new QuillItem());
 	}
 }
